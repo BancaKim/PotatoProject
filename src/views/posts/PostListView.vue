@@ -9,7 +9,7 @@
             <div v-for="post in posts" :key="post.id" class="col-4">
                 <AppCard 
                 :title="post.title"
-                :content="post.content" 
+                :contents="post.contents" 
                 :created-at="post.createdAt"
                 @click="goPageId(post.id)">
             </AppCard>
@@ -30,12 +30,30 @@ import AppCard2 from '@/components/AppCard2.vue';
 import {getPosts} from '@/api/posts'
 import { useRouter } from 'vue-router';
 import {ref} from 'vue';
-const posts = ref([]);
-const fetchPosts = () => {
-    posts.value = getPosts();
-}
-fetchPosts();
+
 const router = useRouter()
+const posts = ref([]);
+const params = ref({
+    _sort: 'createdAt',
+    _order: 'desc',
+})
+
+const fetchPosts = async() => {
+    try{
+        const { data } = await getPosts(params.value);
+        posts.value = data;
+    }catch(error){
+        console.error(error)
+    }
+    // getPosts()
+    // .then((response)=>{
+    //     console.log('response: ', response);
+    // }).catch(error=>{
+    //     console.log('error: ',error);
+    // });
+}
+
+fetchPosts();
 const goPage = () => {
     router.push('/posts/create');
 };

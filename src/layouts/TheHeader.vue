@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-sm navbar-dark bg-custom">
 
             <div class="container-fluid">
-                <img src="@/assets/potato_brand.png" id="potatologo" alt="STARBUCKS">
+                <img src="@/assets/potato_logo_back.png" id="potatologo" alt="STARBUCKS">
                 <!-- <a class="navbar-brand" href="#">감자마켓</a> -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
