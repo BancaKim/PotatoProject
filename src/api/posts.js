@@ -1,6 +1,7 @@
 //axios json data 조회
 
-import axios from 'axios';
+// import axios from 'axios';
+import {posts} from ".";
 
 // const posts = [
 //     {id:1, title:'제목1',content:'내용1',createdAt:'2024-01-01'},
@@ -10,22 +11,22 @@ import axios from 'axios';
 //     {id:5, title:'제목5',content:'내용5',createdAt:'2024-05-05'},
 // ];
 
-export function getPosts(){
-    return axios.get('http://localhost:5000/posts');
+export function getPosts(params){
+    return posts.get('/', {params});
 }
 
 export function getPostById(id) {
-    return axios.get(`http://localhost:5000/posts/${id}`);
+    return posts.get(`/${id}`);
 }
 
 export function createPost(data) {
-    return axios.post('http://localhost:5000/posts',data);
+    return posts.post('',data);
 }
 
 export function updatePost(id,data) {
-    return axios.put(`http://localhost:5000/posts/${id}`,data);
+    return posts.patch(`/${id}`,data);
 }
 
 export function deletePost(id) {
-    return axios.delete(`http://localhost:5000/posts/${id}`);
+    return posts.delete(`/${id}`);
 }

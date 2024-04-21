@@ -1,59 +1,67 @@
 <template>
-  <main>
-    <div class="container py-4">
-      <PostCreate @create-post="createPost"></PostCreate>
+  <div>
+    <h2>Home View</h2>
+    <p>{{ $route.path }}</p>
+    <p>{{ $route.name }}</p>
+    <button class="btn btn-primary" @click="goAboutPage">About으로 이동</button>
+    <hr class="my-4"/>
+      <AppGrid :items="posts" col-class="col-6">
+        <template v-slot="{item}">
+             <AppCard 
+                :title="item.title"
+                :content="item.content" 
+                :created-at="item.createdAt"
+                @click="goPageId(item.id)">
+            </AppCard>
+        </template>
 
-      <hr class="my-4">
-      <div class="row g-5">
-        <div v-for="post in posts" :key="post.id" class="col col-4">
-          <AppCard :title="post.title" :contents="post.contents" :type="post.type" :is-like="post.isLike"
-            @toggleLike="post.isLike = !post.isLike">
-          </AppCard>
-        </div>
-      </div>
-
-      <hr class="my-4">
-      <LabelInput v-model="username" label="이름" class="parent-classa" style="color: red" id="parent-id"></LabelInput>
-    </div>
-  </main>
+      </AppGrid>
+  </div>
 </template>
 
-<script>
-import { ref } from 'vue';
-import { reactive } from 'vue';
+<script setup>
+import AppGrid from '@/components/posts/AppGrid.vue';
 import AppCard from '@/components/AppCard.vue';
-import PostCreate from '@/components/PostCreate.vue';
-import LabelInput from '@/components/LabelInput.vue';
+import {useRouter} from 'vue-router';
+import {getPosts} from '@/api/posts'
+import {ref, watchEffect} from 'vue';
 
-export default {
-  components: {
-    AppCard,
-    PostCreate,
-    LabelInput,
-  },
-  setup() {
-    const obj = reactive({
-      title: '제목2',
-      contents: '내용2'
-    });
-    const posts = reactive([
-      { id: 1, title: '맥북프로 M2', contents: '180만원', isLike: true, type: 'electronic' },
-      { id: 2, title: '아이폰15', contents: '130만원', isLike: true, type: 'electronic' },
-      { id: 3, title: '아이패드 에어', contents: '80만원', isLike: true, type: 'electronic' },
-      { id: 4, title: '에어팟 프로', contents: '20만원', isLike: true, type: 'electronic' },
-      { id: 5, title: '스투시 반팔티', contents: '30만원', isLike: false, type: 'clothes' },
-      { id: 6, title: '꼼데가르숑 가디건', contents: '30만원', isLike: false, type: 'clothes' }
-    ]);
-    const createPost = newPost => {
-      console.log('newPost: ', newPost);
-      posts.push(newPost);
-    };
-    const username = ref('');
-    const firstname = ref('');
-    const lastname = ref('');
-    return { obj, posts, createPost, username, firstname, lastname };
-  },
+const router = useRouter();
+const totalCount = ref(0);
+const posts = ref([]);
+const goAboutPage =()=>{
+  router.push('/about');
 };
+
+const params = ref({
+    _sort: 'createdAt',
+    _order: 'desc',
+    _page: 1,
+    _limit: 9,
+    title_like: '',
+});
+
+const fetchPosts = async() => {
+    try{
+        const { data,headers } = await getPosts(params.value);
+        posts.value = data;
+        totalCount.value = headers['x-total-count'];
+    }catch(error){
+        console.error(error)
+    }
+}
+
+watchEffect(fetchPosts);
+const goPageId = (id) => {
+    // router.push(`/posts/'${id}`);
+    router.push({
+        name:'PostDetail',
+        params: {
+            id,
+        }
+    })
+};
+
 </script>
 
 <style scoped></style>

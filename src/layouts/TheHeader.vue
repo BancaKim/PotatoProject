@@ -29,14 +29,14 @@
                             <!-- <a class="nav-link" href="#">Link</a> -->
                         </li>
                         <!--게시글-->
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/posts">게시글</router-link>
+                        <!-- <li class="nav-item"> -->
+                            <!-- <router-link class="nav-link" to="/posts">게시글</router-link> -->
                             <!-- <a class="nav-link" href="#">Link</a> -->
-                        </li>
+                        <!-- </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/nested">Nested</router-link>
+                            <router-link class="nav-link" to="/nested">Nested</router-link> -->
                             <!-- <a class="nav-link" href="#">Link</a> -->
-                        </li>
+                        <!-- </li> -->
                         <!--게시글-->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
