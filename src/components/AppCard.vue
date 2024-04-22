@@ -5,11 +5,13 @@
             <!-- type : news, notice -->
             <span class="badge text-bg-secondary mt-2">{{ typeName }}</span>
             <h5 class="card-title">{{ title }}</h5>
-            <p class="card-text">{{ contents }}</p>
+            <p class="card-text">{{ content }}</p>
             <a href="#" class="btn" :class="isLikeClass" @click="toggleLike">좋아요</a>
 
             <p class="text-muted">{{ createdAt }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="d-flex flex-row-reverse bd-highlight">
+                <a href="#" class="btn btn-primary" @click.stop="$emit('modal')">이동</a>
+            </div>
     </div>
     </div>
 </template>
@@ -29,7 +31,7 @@ export default {
             type: String,
             required: true,
         },
-        contents: {
+        content: {
             type: String,
             required: true,
         },
@@ -45,7 +47,7 @@ export default {
             default: () => ({}),
         }
     },
-    emits: ['toggleLike'],
+    emits: ['toggleLike','modal'],
     setup(props, context) {
         // console.log('props.title ', props.title);
         const isLikeClass = computed(() => props.isLike ? 'btn-danger' : 'btn-outline-danger');
