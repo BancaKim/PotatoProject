@@ -7,7 +7,6 @@ import PostCreateView from '@/views/posts/PostCreateView.vue'
 import PostDetailView from '@/views/posts/PostDetailView.vue'
 import PostEditView from '@/views/posts/PostEditView.vue'
 import PostListView from '@/views/posts/PostListView.vue'
-import NoticeCom from '@/components/NoticeCom.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import NestedView from '@/views/nested/NestedView.vue'
 import NestedOneView from '@/views/nested/NestedOneView.vue'
@@ -50,19 +49,15 @@ const routes = [
     path: '/posts/:id',
     name:"PostDetail",
     component: PostDetailView,
-    // props : true
-    props: route => ({id:parseInt(route.params.id)}),
+    props : true
+    // props: route => ({id:parseInt(route.params.id)}),
   },
    {
     path: '/posts/:id/edit',
     name: 'PostEdit',
     component: PostEditView
-  },
-   {
-    path: '/notice',
-    name: 'Notice',
-    component: NoticeCom
-  },
+  }
+   ,
     {path: '/:pathMatch(.*)*', 
     name:'NotFound', 
     component: NotFoundView}

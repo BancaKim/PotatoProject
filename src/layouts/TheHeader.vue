@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-sm navbar-dark bg-custom">
 
             <div class="container-fluid">
-                <img src="@/assets/potato_brand.png" id="potatologo" alt="STARBUCKS">
+                <img src="@/assets/potato_logo_back.png" id="potatologo" alt="STARBUCKS">
                 <!-- <a class="navbar-brand" href="#">감자마켓</a> -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -23,19 +23,19 @@
                         <li class="nav-item">
                             <router-link class="nav-link" to="/about">내 근처</router-link>
                             <!-- <a class="nav-link" href="#">Link</a> -->
-                        </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/mypage">나의감자</router-link>
+                        <!-- </li> -->
+                        <!-- <li class="nav-item"> -->
+                            <!-- <router-link class="nav-link" to="/mypage">나의감자</router-link> -->
                             <!-- <a class="nav-link" href="#">Link</a> -->
                         </li>
                         <!--게시글-->
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/posts">게시글</router-link>
+                        <!-- <li class="nav-item"> -->
+                            <!-- <router-link class="nav-link" to="/posts">게시글</router-link> -->
                             <!-- <a class="nav-link" href="#">Link</a> -->
-                        </li>
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/nested">Nested</router-link>
-                            <!-- <a class="nav-link" href="#">Link</a> -->
+                        <!-- </li>-->
+
+                        <li class="nav-item"> 
+                            <router-link class="nav-link" to="/nested">나의감자</router-link> 
                         </li>
                         <!--게시글-->
                         <li class="nav-item dropdown">

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <span>this is about page</span>
+    <h1>내 근처</h1>
+    <hr>
+    <img src="@/assets/map.jpg">
+
   </div>
 </template>
 

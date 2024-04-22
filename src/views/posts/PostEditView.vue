@@ -2,29 +2,74 @@
     <div>
         <h2>게시글 수정</h2>
         <hr class="my-4">
-        <form @submit.prevent>
-            <div class="mb-3">
-                <label for="title" class="form-label">제목</label>
-                <input type="text" class="form-control" id="title" placeholder="제목을 입력해주세요.">
-            </div>
-            <div class="mb-3">
-                <label for="content" class="form-label">내용</label>
-                <textarea class="form-control" id="content" rows="3"></textarea>
-            </div>
-            <div class="pt-4">
-                <button type="button" class="btn btn-outline-danger me-2" @click="goDetailPage">취소</button>
+        <PostForm
+        v-model:title="form.title" 
+        v-model:content="form.content" 
+         @submit.prevent="edit">
+        <template #actions>
+                <button type="button" class="btn btn-outline-danger" @click="goDetailPage">취소</button>
                 <button class="btn btn-primary">수정</button>
-            </div>
-        </form>
-    </div>
+        </template>
+        </PostForm>
+        <!-- <AppAlert :show="showAlert" :message="alertMessage" :type="alertType"></AppAlert> -->
+        <AppAlert :items="alerts"/>
+        </div>
 </template>
 
 <script setup> 
 import { useRoute, useRouter } from 'vue-router';
+import {ref} from 'vue';
+import {getPostById, updatePost} from '@/api/posts'
+import PostForm from '@/components/posts/PostForm.vue';
+import AppAlert from '@/components/AppAlert.vue';
+
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
+
+const form = ref({
+    title: null,
+    content: null,
+})
+
+const fetchPost = async () => {
+    try{
+        const { data } = await getPostById(id);
+        setForm(data);  //객체 할당
+    } catch(error) {
+        vAlert(error.message);
+        console.error(error);
+
+    }
+}
+const setForm = ({ title, content}) => {
+    form.value.title = title;
+    form.value.content = content;
+};
+fetchPost();
+const edit = async ()=>{
+try{
+    await updatePost(id,{...form.value})
+    // router.push({name:'PostDetail', params: {id}})
+    vAlert('수정이 완료되었습니다!', 'success');
+}catch(error){
+    console.error(error)
+    vAlert(error.message);
+}
+}
+
 const goDetailPage = ()=>router.push({name:'PostDetail', params:{id}});
+
+//alert
+
+const alerts = ref([]);
+const vAlert = (message, type='error') =>{
+    alerts.value.push({message, type});
+
+    setTimeout(()=>{
+        alerts.value.shift();
+    },2000);
+}
 </script>
 
 <style lang="scss" scoped>
